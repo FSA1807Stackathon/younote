@@ -1,14 +1,32 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import { fetchAllCoursesThunk } from '../store/courses';
-import { Link } from 'react-router-dom'
+import { fetchAllCoursesThunk } from '../store/courses'
 import CourseCard from './CourseCard'
+import Button from '@material-ui/core/Button'
+import AddIcon from '@material-ui/icons/Add'
+import ClassCreateModal from './ClassCreateModal'
 
 // AllCourses Component: ONLY APPLIES TO USERS WHO ARE LOGGED IN
 
 class AllCourses extends Component {
+
+  constructor(props){
+    super(props);
+
+    this.state={
+      showModal: false
+    }
+  }
+
+  showModal = () => {
+    this.setState({showModal: true});
+  }
+
+  hideModal = () => {
+    this.setState({showModal: false});
+  }
+
   componentDidMount(){
-    console.log("params checking", this.props.match.params)
     this.props.getAllCourses()
   }
   render(){
@@ -21,6 +39,19 @@ class AllCourses extends Component {
             course={course}
           />
         ))}
+
+        <Button variant="fab" color="secondary" aria-label="Add" onClick={this.showModal}>
+          <AddIcon />
+        </Button>
+
+        <ClassCreateModal show={this.state.showModal} handleClose={this.hideModal}>
+          <p>Modal</p>
+          <p>Data</p>
+          <button type="button" onClick={this.showModal}>
+            open
+          </button>
+        </ClassCreateModal>
+
       </div>
     )
   }
@@ -34,7 +65,10 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getAllCourses: () => dispatch(fetchAllCoursesThunk())
+    getAllCourses: () => dispatch(fetchAllCoursesThunk()),
+    openModal: () => {
+
+    }
   }
 }
 
