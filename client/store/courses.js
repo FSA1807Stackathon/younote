@@ -48,6 +48,31 @@ export const fetchSingleCourseThunk = (courseId) => async dispatch => {
   }
 }
 
+export const createCourse = (name) => async dispatch => {
+  try{
+    const {data: user} = await axios.get('/auth/me')
+
+    if(!user){
+      // TODO: throw an error
+    }else{
+      const course ={
+        userId: user.id,
+        name,
+      }
+
+      // create a new course with the data given.
+      await axios.post(`/api/courses`, course);
+
+      // fetch all the courses of the current user.
+      const res = await axios.get(`/api/users/${user.id}/courses`)
+      const {courses} = res.data;
+      dispatch(getAllCourses(courses))
+    }
+  }catch(err){
+    console.log(err);
+  }
+}
+
 // REDUCER
 const courses = (state = initialCourseState, action) => {
   switch (action.type) {
