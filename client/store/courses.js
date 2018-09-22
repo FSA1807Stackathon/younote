@@ -48,6 +48,34 @@ export const fetchSingleCourseThunk = (courseId) => async dispatch => {
   }
 }
 
+export const createCourse = (name) => async dispatch => {
+  let user
+  try {
+    const res = await axios.get('/auth/me');
+    user = res.data;
+
+    if(!user){
+      throw Error('Logged-out user is not allowed to create a course');
+    }else{
+      const course ={
+        userId: user.id,
+        name,
+      }
+
+      // create a new course with the data given.
+      await axios.post(`/api/courses`, course);
+    }
+  }catch(err){
+    console.log(err);
+    throw Error('Failed to create a new course');
+  }finally{
+    // fetch all the courses of the current user.
+    const res = await axios.get(`/api/users/${user.id}/courses`)
+    const {courses} = res.data;
+    dispatch(getAllCourses(courses))
+  }
+}
+
 // REDUCER
 const courses = (state = initialCourseState, action) => {
   switch (action.type) {
