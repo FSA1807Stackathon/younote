@@ -14,7 +14,7 @@ class Navbar extends Component {
   render() {
     const {isLoggedIn} = this.props
     return (
-      <AppBar color="primary" position="sticky">
+      <AppBar color="primary" position="sticky" className="navbar">
         <h1>YouNote</h1>
         <Link to="/" className="logo-link" />
         <nav className="nav-items">
