@@ -171,3 +171,49 @@ router.get('/:userId/courses/:courseId', async (req, res, next) => {
     next(err);
   }
 });
+
+router.get('/:userId/courses/:courseId/lectures/:lectureId', async (req, res, next) => {
+  try{
+    const userId = req.params.userId;
+    const courseId = req.params.courseId;
+    const lectureId = req.params.lectureId;
+
+    const user = await User.findById(userId);
+    if(!user){
+      res.status(404).send('User Not Found');
+      return;
+    }
+
+    const course = await Course.findOne({
+      where: {
+        id: courseId,
+        userId: userId,
+      }
+    });
+
+    if(!course){
+      res.status(404).send('Course Not Found');
+      return;
+    }
+
+    const lecture = await Lecture.findOne(
+      {
+        where: {
+          id: lectureId,
+          userId: userId,
+          courseId: courseId,
+        }
+      }
+    );
+
+    console.log(lecture);
+    if(!lecture){
+      res.status(404).send('Lecture Not Found');
+      return;
+    }
+
+    res.json(lecture);
+  }catch(err){
+    next(err);
+  }
+});
