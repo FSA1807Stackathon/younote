@@ -45,7 +45,7 @@ class AllCourses extends Component {
   render(){
     const {allCourses} =  this.props.courses
     return (
-      <div>
+      <div className="courses">
         {
           allCourses.map(course => (
           <CourseCard
@@ -54,9 +54,11 @@ class AllCourses extends Component {
           />))
         }
 
-        <Button variant="fab" color="secondary" aria-label="Add" onClick={this.showModal}>
-          <AddIcon />
-        </Button>
+        <div className="create-course">
+          <Button variant="fab" color="secondary" aria-label="Add" onClick={this.showModal}>
+            <AddIcon />
+          </Button>
+        </div>
 
         <ClassCreateModal show={this.state.showModal} handleClose={this.hideModal}>
           <form onSubmit={this.createCourse}>
@@ -75,7 +77,6 @@ class AllCourses extends Component {
             <Button color="primary" variant="outlined" size="small" aria-label="Add" onClick={this.handleClose} type="button"> Cancel </Button>
           </form>
         </ClassCreateModal>
-
       </div>
     )
   }

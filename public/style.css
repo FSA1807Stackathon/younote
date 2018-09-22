@@ -46,3 +46,15 @@ form div {
 .display-none {
   display: none;
 }
+
+.courses{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: space-around;
+}
+
+.create-course{
+  /*padding: 50px 50px;*/
+}
