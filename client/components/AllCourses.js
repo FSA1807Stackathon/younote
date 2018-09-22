@@ -7,7 +7,6 @@ import AddIcon from '@material-ui/icons/Add'
 import ClassCreateModal from './ClassCreateModal'
 
 // AllCourses Component: ONLY APPLIES TO USERS WHO ARE LOGGED IN
-
 class AllCourses extends Component {
 
   constructor(props){
@@ -33,23 +32,31 @@ class AllCourses extends Component {
     const {allCourses} =  this.props.courses
     return (
       <div>
-        {allCourses.map(course => (
+        {
+          allCourses.map(course => (
           <CourseCard
             key={course.id}
             course={course}
-          />
-        ))}
+          />))
+        }
 
         <Button variant="fab" color="secondary" aria-label="Add" onClick={this.showModal}>
           <AddIcon />
         </Button>
 
         <ClassCreateModal show={this.state.showModal} handleClose={this.hideModal}>
-          <p>Modal</p>
-          <p>Data</p>
-          <button type="button" onClick={this.showModal}>
-            open
-          </button>
+          <form onSubmit={this.props.createCourse}>
+            <div>
+              <h1>Create a Course</h1>
+            </div>
+            <div>
+              <label htmlFor="name">Name</label>
+              <input name="name" type="text" />
+            </div>
+
+            <Button variant="outlined" color="primary" size="small" type="submit">Create</Button>
+            <Button color="primary" variant="outlined"  size="small" aria-label="Add" onClick={this.handleClose} type="button" >Cancel</Button>
+          </form>
         </ClassCreateModal>
 
       </div>
@@ -66,9 +73,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getAllCourses: () => dispatch(fetchAllCoursesThunk()),
-    openModal: () => {
-
-    }
+    createCourse: () => {},
   }
 }
 
