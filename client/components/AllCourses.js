@@ -38,6 +38,7 @@ class AllCourses extends Component {
       this.hideModal();
     }catch(err){
       console.log(err);
+      // Add an error message to the modal
     }
   }
 
@@ -59,6 +60,9 @@ class AllCourses extends Component {
 
         <ClassCreateModal show={this.state.showModal} handleClose={this.hideModal}>
           <form onSubmit={this.createCourse}>
+            <div>
+              <p id="modal-error" />
+            </div>
             <div>
               <h1>Create a Course</h1>
             </div>
