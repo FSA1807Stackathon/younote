@@ -1,17 +1,13 @@
 import React, {Component} from 'react'
 import YouTube from 'react-youtube'
-import {Editor} from '@tinymce/tinymce-react'
+import {connect} from 'react-redux'
+import {fetchSingleLectureThunk} from '../store/lectures'
 
 class SingleLecture extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = { content: '' };
-    this.handleEditorChange = this.handleEditorChange.bind(this);
-  }
-
-  handleEditorChange(content) {
-    this.setState({ content });
+  componentDidMount(){
+    const lectureId = Number(this.props.match.params.lectureId)
+    this.props.getSingleLecture(lectureId)
   }
 
   render(){
@@ -22,17 +18,27 @@ class SingleLecture extends Component {
     return (
       <div>
         <YouTube
-          videoId="mvA6YuJ6c_Y"
+          videoId={this.props.lecture.youtube_key}
           opts={opts}
         />
-
-         <Editor value={this.state.content} onEditorChange={this.handleEditorChange} />
       </div>
     )
   }
 }
 
-export default SingleLecture
+const mapState = state => {
+  return {
+    lecture: state.lectures.selected
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    getSingleLecture: (id) => dispatch(fetchSingleLectureThunk(id))
+  }
+}
+
+export default connect(mapState, mapDispatch)(SingleLecture)
 
 
 

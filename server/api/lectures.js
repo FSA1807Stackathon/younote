@@ -6,12 +6,11 @@ module.exports = router;
 router.get('/:lectureId', async(req, res, next) => {
   try{
     const lectureId = req.params.lectureId;
-
+console.log(lectureId);
     // get a Lecture instance including a list of associated Notes instances.
-    let lecture = await Lecture.findById(lectureId, {
-      include: [Note]
-    })
+    let lecture = await Lecture.findById(lectureId);
 
+    console.log(lecture);
     if(!lecture){
       res.status(404).send('Lecture Not Found');
       return;
