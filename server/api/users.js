@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Course, Lecture} = require('../db/models')
+const {User, Course, Lecture, Note} = require('../db/models')
 module.exports = router
 
 // GET /api/users
@@ -135,6 +135,7 @@ router.get('/:userId/courses', async (req, res, next) => {
       return;
     }
 
+    user.courses.sort((course1, course2) => course1.createdAt < course2.createdAt);
     res.json(user);
   }catch(err){
     next(err);
@@ -166,6 +167,7 @@ router.get('/:userId/courses/:courseId', async (req, res, next) => {
       return;
     }
 
+    course.lectures.sort((lecture1, lecture2) => lecture1.createdAt < lecture2.createdAt);
     res.json(course);
   }catch(err){
     next(err);
@@ -245,7 +247,8 @@ router.get('/:userId/courses/:courseId/lectures/:lectureId', async (req, res, ne
           id: lectureId,
           userId: userId,
           courseId: courseId,
-        }
+        },
+        include: [Note],
       }
     );
 
@@ -254,6 +257,7 @@ router.get('/:userId/courses/:courseId/lectures/:lectureId', async (req, res, ne
       return;
     }
 
+    lecture.notes.sort((note1, note2) => note1.createdAt < note2.createdAt);
     res.json(lecture);
   }catch(err){
     next(err);
