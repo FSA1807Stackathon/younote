@@ -172,6 +172,49 @@ router.get('/:userId/courses/:courseId', async (req, res, next) => {
   }
 });
 
+router.get('/:userId/courses/:courseId/lectures/', async (req, res, next) => {
+  try{
+    const userId = req.params.userId;
+    const courseId = req.params.courseId;
+
+    const user = await User.findById(userId);
+    if(!user){
+      res.status(404).send('User Not Found');
+      return;
+    }
+
+    const course = await Course.findOne({
+      where: {
+        id: courseId,
+        userId: userId,
+      }
+    });
+
+    if(!course){
+      res.status(404).send('Course Not Found');
+      return;
+    }
+
+    const lectures = await Lecture.findAll(
+      {
+        where: {
+          userId: userId,
+          courseId: courseId,
+        }
+      }
+    );
+
+    if(!lectures){
+      res.status(404).send('Lectures Not Found');
+      return;
+    }
+
+    res.json(lectures);
+  }catch(err){
+    next(err);
+  }
+});
+
 router.get('/:userId/courses/:courseId/lectures/:lectureId', async (req, res, next) => {
   try{
     const userId = req.params.userId;
