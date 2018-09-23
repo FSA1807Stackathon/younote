@@ -5,15 +5,15 @@ module.exports = router;
 // POST
 router.post('/', async(req, res, next) => {
   try{
-    const {note_text, lectureId, player_head_pos} = req.body;
+    const {note, lectureId, player_head_pos} = req.body;
 
-    const note = await Note.create({
-      note: note_text,
+    const noteCreated = await Note.create({
+      note: note,
       lectureId: lectureId,
       player_head_pos: player_head_pos
     });
 
-    res.json(note);
+    res.json(noteCreated);
   }catch(err){
     next(err);
   }
