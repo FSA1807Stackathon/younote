@@ -5,7 +5,7 @@ const Note = db.define('note', {
   note: {
     type: Sequelize.STRING,
   },
-  timestamp: {
+  player_head_pos: {
     type: Sequelize.DATE
   }
 });

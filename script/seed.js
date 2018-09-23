@@ -21,28 +21,28 @@ async function seed() {
   const lectures = await Promise.all([
     Lecture.create({
       title: "Cracking the Coding Interview",
-      youtube_url: "https://www.youtube.com/watch?v=Eg5-tdAwclo",
+      youtube_key: "Eg5-tdAwclo",
       note: "I need to learn algorithms",
       userId: 1,
       courseId: 1
     }),
     Lecture.create({
       title: "Javascript Key Concepts",
-      youtube_url: "https://www.youtube.com/watch?v=mvA6YuJ6c_Y&t=238s",
+      youtube_key: "mvA6YuJ6c_Y",
       note: "Top 3 Concepts to Learn Before Day One: Functional Composition,Higher Order Functions, Prototypal Inheritance",
       userId: 1,
       courseId: 1
     }),
     Lecture.create({
       title: "Toggler Brain Teaser",
-      youtube_url: "https://www.youtube.com/watch?v=l3OkPYhDi9w",
+      youtube_key: "l3OkPYhDi9w",
       note: "I can't solve this problem. Hmmmmmmmm",
       userId: 1,
       courseId: 2
     }),
     Lecture.create({
       title: "Using the Ableton tool to make mashup music",
-      youtube_url: "https://www.youtube.com/watch?v=lTx3G6h2xyA",
+      youtube_key: "lTx3G6h2xyA",
       note: "Clipped: how to use the Ableton Live to do a mashup",
       userId: 2,
       courseId: 3
