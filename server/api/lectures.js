@@ -30,14 +30,23 @@ router.post('/', async(req, res, next) => {
 
     let lecture = await Lecture.findOne({
       where: {
-        youtube_key, userId
+        youtube_key: getYouTubeKey(youtube_key),
+        userId
       }
     });
 
     if(lecture){
       console.log(`There is already a lecture with the same youtube_key created by the current user`);
     }else{
-      lecture = await Lecture.create({title, note, userId, courseId, youtube_key});
+      lecture = await Lecture.create(
+        {
+          title,
+          note,
+          userId,
+          courseId,
+          youtube_key: getYouTubeKey(youtube_key)
+        }
+      );
     }
 
     res.json(lecture);
@@ -57,7 +66,7 @@ router.put('/:lectureId', async(req, res, next) => {
 
     const lectureBody = {
       name: req.body.title,
-      youtube_key: req.body.youtube_key,
+      youtube_key: getYouTubeKey(req.body.youtube_key),
       note: req.body.note,
       userId: req.body.userId,
       courseId: req.body.courseId,
@@ -118,3 +127,15 @@ router.delete('/lectures/:lectureId', async (req, res, next) => {
     next(err);
   }
 });
+
+function getYouTubeKey(url){
+  var key = '';
+  url = url.replace(/(>|<)/gi,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+  if(url[2] !== undefined) {
+    key = url[2].split(/[^0-9a-z_\-]/i)[0];
+  }else {
+    key = url;
+  }
+
+  return key;
+}
