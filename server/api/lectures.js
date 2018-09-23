@@ -129,13 +129,10 @@ router.delete('/lectures/:lectureId', async (req, res, next) => {
 });
 
 function getYouTubeKey(url){
-  var key = '';
-  url = url.replace(/(>|<)/gi,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
-  if(url[2] !== undefined) {
-    key = url[2].split(/[^0-9a-z_\-]/i)[0];
-  }else {
-    key = url;
+  let splitted = url.replace(/(>|<)/gi,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+  if(splitted[2] === undefined){
+    return url;
   }
 
-  return key;
+  return splitted[2].split(/[^0-9a-z_\-]/i)[0];
 }
