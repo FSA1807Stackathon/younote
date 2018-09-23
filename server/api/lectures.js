@@ -6,16 +6,17 @@ module.exports = router;
 router.get('/:lectureId', async(req, res, next) => {
   try{
     const lectureId = req.params.lectureId;
-console.log(lectureId);
-    // get a Lecture instance including a list of associated Notes instances.
-    let lecture = await Lecture.findById(lectureId);
 
-    console.log(lecture);
+    // get a Lecture instance including a list of associated Notes instances.
+    const lecture = await Lecture.findById(lectureId, {include: [Note]});
+
     if(!lecture){
       res.status(404).send('Lecture Not Found');
       return;
     }
 
+    // sort notes
+    lecture.notes.sort((note1, note2) => note1.createdAt < note2.createdAt);
     res.json(lecture);
   }catch(err){
     next(err);

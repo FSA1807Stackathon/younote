@@ -21,7 +21,6 @@ const styles = theme => ({
 const LectureListCard = props => {
   const { classes } = props;
   const { id, title } = props.lecture
-  console.log("THIS IS PROPS LECTURE", props.lecture)
   return (
     <div className={classes.root}>
       <List component="nav">
