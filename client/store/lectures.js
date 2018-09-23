@@ -28,6 +28,22 @@ export const fetchSingleLectureThunk = (lectureId) => async dispatch => {
   }
 }
 
+export const postNote = (note) => async dispatch => {
+  try {
+    const {data: user} = await axios.get("/auth/me")
+    if(!user) throw Error('Logged-out user is not allowed to create a course')
+    await axios.post(`/api/notes`, note);
+  }catch(err){
+    console.log(err);
+    // throw Error('Failed to create a new course');
+  }finally{
+    // fetch all the courses of the current user.
+    const lectureId = note.lectureId
+    const {data} = await axios.get(`/api/lectures/${lectureId}`)
+    dispatch(getSingleLecture(data))
+  }
+}
+
 // REDUCER
 const lectures = (state = initialLectureState, action) => {
   switch (action.type) {
