@@ -11,9 +11,11 @@ User.hasMany(Course);
 Lecture.belongsTo(User, {through: Course});
 Course.hasMany(Lecture);
 Note.belongsTo(Lecture);
+Lecture.hasMany(Note);
 
 module.exports = {
   User,
   Course,
   Lecture,
+  Note,
 }
