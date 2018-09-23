@@ -11,6 +11,8 @@ class SingleLecture extends Component {
       player_head_pos: ""
     }
     this.onPause = this.onPause.bind(this)
+    this.changePlayerHeadPos = this.changePlayerHeadPos.bind(this);
+    this.start = this.start.bind(this);
   }
 
   componentDidMount(){
@@ -28,6 +30,16 @@ class SingleLecture extends Component {
     })
   }
 
+  changePlayerHeadPos(headPos){
+    this.setState({
+      player_head_pos: headPos
+    })
+  }
+
+  start(evt){
+    evt.target.start(this.state.player_head_pos);
+  }
+
   render(){
     if(!this.props.lecture.notes) return null;
     const opts = {
@@ -35,22 +47,19 @@ class SingleLecture extends Component {
       width: '640',
     };
 
-    const strArr = this.state.player_head_pos.split(":")
-    const minute = Number(strArr[0]) * 60;
-    const seconds = Number(strArr[1])
-    console.log(minute + seconds);
-
     return (
       <div>
         <YouTube
           videoId={this.props.lecture.youtube_key}
           opts={opts}
           onPause={this.onPause}
+          onStateChange={this.start}
         />
+
         {
           this.props.lecture.notes.map(note => (
             <div key={note.id}>
-              <h2>{note.player_head_pos}</h2>
+              <a href="#" onClick={() => this.changePlayerHeadPos(note.player_head_pos)}>{note.player_head_pos}</a>
               <p>{note.note}</p>
             </div>
           ))
