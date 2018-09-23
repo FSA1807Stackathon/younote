@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { fetchSingleCourseThunk } from '../store/courses'
+import LectureListCard from './LectureListCard';
 
 class SingleCourse extends Component {
   componentDidMount(){
@@ -14,11 +15,10 @@ class SingleCourse extends Component {
     return (
       <div>
         {course.map(lecture => (
-          <div key={lecture.id}>
-            <h2>{lecture.title}</h2>
-            <h4>{lecture.note}</h4>
-            <p>{lecture.youtube_url}</p>
-          </div>
+          <LectureListCard
+            key={lecture.id}
+            lecture={lecture}
+          />
         ))}
       </div>
     )
