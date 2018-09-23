@@ -206,7 +206,6 @@ router.get('/:userId/courses/:courseId/lectures/:lectureId', async (req, res, ne
       }
     );
 
-    console.log(lecture);
     if(!lecture){
       res.status(404).send('Lecture Not Found');
       return;
