@@ -1,22 +1,43 @@
 const router = require('express').Router();
-const {Lecture} = require('../db/models');
+const {Lecture, Note} = require('../db/models');
 module.exports = router;
+
+// GET
+router.get('/:lectureId', async(req, res, next) => {
+  try{
+    const lectureId = req.params.lectureId;
+
+    // get a Lecture instance including a list of associated Notes instances.
+    let lecture = await Lecture.findById(lectureId, {
+      include: [Note]
+    })
+
+    if(!lecture){
+      res.status(404).send('Lecture Not Found');
+      return;
+    }
+
+    res.json(lecture);
+  }catch(err){
+    next(err);
+  }
+});
 
 // POST
 router.post('/', async(req, res, next) => {
   try{
-    const {title, youtube_url, note, userId, courseId} = req.body;
+    const {title, youtube_key, note, userId, courseId} = req.body;
 
     let lecture = await Lecture.findOne({
       where: {
-        youtube_url, userId
+        youtube_key, userId
       }
     });
 
     if(lecture){
-      console.log(`There is already a lecture with the same youtube_url created by the current user`);
+      console.log(`There is already a lecture with the same youtube_key created by the current user`);
     }else{
-      lecture = await Lecture.create({title, note, userId, courseId, youtube_url});
+      lecture = await Lecture.create({title, note, userId, courseId, youtube_key});
     }
 
     res.json(lecture);
@@ -36,7 +57,7 @@ router.put('/:lectureId', async(req, res, next) => {
 
     const lectureBody = {
       name: req.body.title,
-      youtube_url: req.body.youtube_url,
+      youtube_key: req.body.youtube_key,
       note: req.body.note,
       userId: req.body.userId,
       courseId: req.body.courseId,
@@ -85,7 +106,12 @@ router.delete('/lectures/:lectureId', async (req, res, next) => {
 
     await Lecture.destroy({
       where: {id: lectureId}
-    })
+    });
+
+    // delete all the associated Note instances
+    await Note.destroy({
+      where: {lectureId}
+    });
 
     res.status(201).send();
   }catch(err){
