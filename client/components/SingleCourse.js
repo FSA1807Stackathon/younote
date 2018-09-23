@@ -32,8 +32,6 @@ class SingleCourse extends Component {
 
   render(){
     const course = this.props.course
-    console.log("COURSE", course)
-    console.log("SINGLE COURSE", this.props.course)
     return (
       <div>
         {course.map(lecture => (

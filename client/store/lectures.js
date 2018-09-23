@@ -20,7 +20,6 @@ export const fetchSingleLectureThunk = (lectureId) => async dispatch => {
     const {data: user} = await axios.get('/auth/me')
     if (user){
       const res = await axios.get(`/api/lectures/${lectureId}`)
-      console.log("RES", res)
       const lecture = res.data
       dispatch(getSingleLecture(lecture))
     }
