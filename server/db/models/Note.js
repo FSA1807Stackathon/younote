@@ -6,7 +6,7 @@ const Note = db.define('note', {
     type: Sequelize.STRING,
   },
   player_head_pos: {
-    type: Sequelize.DATE
+    type: Sequelize.INTEGER // save a player head pos in seconds
   }
 });
 

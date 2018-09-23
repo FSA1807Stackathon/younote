@@ -1,6 +1,27 @@
 const router = require('express').Router();
-const {Lecture} = require('../db/models');
+const {Lecture, Note} = require('../db/models');
 module.exports = router;
+
+// GET
+router.get('/:lectureId', async(req, res, next) => {
+  try{
+    const lectureId = req.params.lectureId;
+
+    // get a Lecture instance including a list of associated Notes instances.
+    let lecture = await Lecture.findById(lectureId, {
+      include: [Note]
+    })
+
+    if(!lecture){
+      res.status(404).send('Lecture Not Found');
+      return;
+    }
+
+    res.json(lecture);
+  }catch(err){
+    next(err);
+  }
+});
 
 // POST
 router.post('/', async(req, res, next) => {
@@ -85,7 +106,12 @@ router.delete('/lectures/:lectureId', async (req, res, next) => {
 
     await Lecture.destroy({
       where: {id: lectureId}
-    })
+    });
+
+    // delete all the associated Note instances
+    await Note.destroy({
+      where: {lectureId}
+    });
 
     res.status(201).send();
   }catch(err){
