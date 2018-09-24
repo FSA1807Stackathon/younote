@@ -38,8 +38,8 @@ class NoteText extends Component {
         {
         //<Button color="primary" size="small" onClick={() => this.props.updateNote(note.id)}>Save Changes</Button>
         }
-        <Button color="primary" size="small" onClick={() => this.updateNote(note.id, note.lectureId)}>Save Changes</Button>
-        <Button color="primary" size="small" onClick={() => this.props.deleteNote(note.id, note.lectureId)}>Delete</Button>
+        <Button color="primary" variant="outlined" size="small" onClick={() => this.updateNote(note.id, note.lectureId)}>Save Changes</Button>
+        <Button color="primary" variant="outlined" size="small" onClick={() => this.props.deleteNote(note.id, note.lectureId)}>Delete</Button>
       </div>
     )
   }

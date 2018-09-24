@@ -3,6 +3,7 @@ import YouTube from 'react-youtube'
 import {connect} from 'react-redux'
 import {fetchSingleLectureThunk, postNote, deleteNoteThunk} from '../store/lectures'
 import NoteText from './NoteText'
+import Button from '@material-ui/core/Button'
 
 class SingleLecture extends Component {
 
@@ -66,11 +67,24 @@ class SingleLecture extends Component {
 
     return (
       <div className="single-lecture">
-        <YouTube
+        <div className="notes">
+          <YouTube
           videoId={this.props.lecture.youtube_key}
           opts={opts}
           onPause={this.onPause}
-        />
+          />
+          <form onSubmit={this.props.handleSubmit}>
+            <input type="hidden" name="lectureId" value={this.props.match.params.lectureId} />
+            <label htmlFor="player_head_pos">Paused Time:</label>
+            <input type="text" name="player_head_pos" value={this.state.player_head_pos}/>
+            <br />
+            <label htmlFor="note">Note:</label>
+            <textarea name="note"/>
+            <br />
+
+            <Button variant="outlined" color="primary" type="submit">Save Note</Button>
+          </form>
+        </div>
         <div className="lecture-notes">
           {
             this.props.lecture.notes.map(note => (
@@ -83,20 +97,6 @@ class SingleLecture extends Component {
               </div>
             ))
           }
-          <div className="notes">
-            <form onSubmit={this.props.handleSubmit}>
-              <input type="hidden" name="lectureId" value={this.props.match.params.lectureId} />
-              <label htmlFor="player_head_pos">Paused Time:</label>
-              <input type="text" name="player_head_pos" value={this.state.player_head_pos}/>
-              <br />
-              <label htmlFor="note">Note:</label>
-              <textarea name="note"/>
-              <br />
-
-              <button type="submit">Save</button>
-            </form>
-          </div>
-
         </div>
       </div>
     )
