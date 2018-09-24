@@ -4,7 +4,7 @@ import {Navbar, Login, Signup} from './components'
 import AllCourses from './components/AllCourses'
 import SingleCourse from './components/SingleCourse'
 import SingleLecture from './components/SingleLecture'
-// import Routes from './routes'
+
 import {Route, Switch} from 'react-router-dom'
 
 const App = () => {
