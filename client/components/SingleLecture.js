@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import YouTube from 'react-youtube'
 import {connect} from 'react-redux'
-import {fetchSingleLectureThunk, postNote, deleteNoteThunk} from '../store/lectures'
+import {fetchSingleLectureThunk, postNote} from '../store/lectures'
 import NoteText from './NoteText'
 import Button from '@material-ui/core/Button'
 
