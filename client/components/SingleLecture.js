@@ -51,32 +51,37 @@ class SingleLecture extends Component {
     };
 
     return (
-      <div>
+      <div className="single-lecture">
         <YouTube
           videoId={this.props.lecture.youtube_key}
           opts={opts}
           onPause={this.onPause}
         />
+        <div className="lecture-notes">
+          {
+            this.props.lecture.notes.map(note => (
+              <div className="note-time" key={note.id}>
+                <p className="note-padding">
+                  <a href="#" onClick={() => this.changePlayerHeadPos(note.player_head_pos)}>{note.player_head_pos}s</a>
+                  &nbsp;{note.note}
+                </p>
+              </div>
+            ))
+          }
+          <div className="notes">
+            <form onSubmit={this.props.handleSubmit}>
+              <input type="hidden" name="lectureId" value={this.props.match.params.lectureId} />
+              <label htmlFor="player_head_pos">Paused Time:</label>
+              <input type="text" name="player_head_pos" value={this.state.player_head_pos}/>
+              <br />
+              <label htmlFor="note">Note:</label>
+              <textarea name="note" width="100%"/>
+              <br />
 
-        {
-          this.props.lecture.notes.map(note => (
-            <div key={note.id}>
-              <a href="#" onClick={() => this.changePlayerHeadPos(note.player_head_pos)}>{note.player_head_pos}</a>
-              <p>{note.note}</p>
-            </div>
-          ))
-        }
-        <form onSubmit={this.props.handleSubmit}>
-          <input type="hidden" name="lectureId" value={this.props.match.params.lectureId} />
-          <label htmlFor="player_head_pos">Paused Time:</label>
-          <input type="text" name="player_head_pos" value={this.state.player_head_pos}/>
-          <br />
-          <label htmlFor="note">Note:</label>
-          <input type="text" name="note" />
-          <br />
-
-          <button type="submit">Save</button>
-        </form>
+              <button type="submit">Save</button>
+            </form>
+          </div>
+        </div>
       </div>
     )
   }

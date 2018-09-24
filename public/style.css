@@ -64,3 +64,28 @@ form div {
   display: flex;
   flex-flow: row wrap;
 }
+
+.single-lecture{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly
+}
+
+.lecture-notes {
+  display: flex;
+  flex-direction: column;
+}
+
+.note-time {
+  display: flex;
+  flex-direction: row;
+}
+
+.note-padding {
+  padding-left: 10px
+}
+
+.notes{
+  display: flex;
+  flex-direction: row;
+}
