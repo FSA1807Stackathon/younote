@@ -3,7 +3,7 @@ const db = require('../db')
 
 const Note = db.define('note', {
   note: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
   },
   player_head_pos: {
     type: Sequelize.INTEGER // save a player head pos in seconds
