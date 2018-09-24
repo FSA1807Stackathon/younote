@@ -7,10 +7,14 @@ class SingleLecture extends Component {
 
   constructor(){
     super()
+
     this.state = {
-      player_head_pos: ""
+      player_head_pos: 0,
+      posToPlay: 0
     }
+
     this.onPause = this.onPause.bind(this)
+    this.changePlayerHeadPos = this.changePlayerHeadPos.bind(this);
   }
 
   componentDidMount(){
@@ -22,9 +26,16 @@ class SingleLecture extends Component {
     const totalSeconds = evt.target.getCurrentTime().toFixed(0)
     const minutes = (totalSeconds / 60).toFixed(0)+""
     const seconds = (totalSeconds % 60)
+
     this.setState({
-      player_head_pos:
-      minutes + ":" + ((seconds < 10) ? "0"+seconds : seconds)
+      player_head_pos: minutes + ":" + ((seconds < 10) ? "0"+seconds : seconds)
+    })
+  }
+
+  changePlayerHeadPos(posToPlay){
+    this.setState({
+      ...this.state,
+      posToPlay,
     })
   }
 
@@ -33,12 +44,11 @@ class SingleLecture extends Component {
     const opts = {
       height: '390',
       width: '640',
+      playerVars:{
+        start: this.state.posToPlay,
+        autoplay: 1
+      }
     };
-
-    const strArr = this.state.player_head_pos.split(":")
-    const minute = Number(strArr[0]) * 60;
-    const seconds = Number(strArr[1])
-    console.log(minute + seconds);
 
     return (
       <div>
@@ -47,10 +57,11 @@ class SingleLecture extends Component {
           opts={opts}
           onPause={this.onPause}
         />
+
         {
           this.props.lecture.notes.map(note => (
             <div key={note.id}>
-              <h2>{note.player_head_pos}</h2>
+              <a href="#" onClick={() => this.changePlayerHeadPos(note.player_head_pos)}>{note.player_head_pos}</a>
               <p>{note.note}</p>
             </div>
           ))
@@ -69,7 +80,6 @@ class SingleLecture extends Component {
       </div>
     )
   }
-
 
 }
 
