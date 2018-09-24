@@ -99,7 +99,7 @@ router.put('/:lectureId', async(req, res, next) => {
 });
 
 // DELETE
-router.delete('/lectures/:lectureId', async (req, res, next) => {
+router.delete('/:lectureId', async (req, res, next) => {
   const lectureId = req.params.lectureId;
   try{
     const lecture = await Lecture.findById(lectureId);

@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
+import Delete from '@material-ui/icons/Delete';
 import { Link } from 'react-router-dom'
+import {connect} from 'react-redux';
+import {deleteLecture} from '../store/courses';
 
 const styles = theme => ({
   root: {
@@ -18,23 +17,38 @@ const styles = theme => ({
   },
 });
 
-const LectureListCard = props => {
-  const { classes } = props;
-  const { id, title } = props.lecture
-  return (
-    <div className={classes.root}>
-      <List component="nav">
-        <ListItem button component={ Link } to={`/lectures/${id}`}>
-          <ListItemText primary={title} />
-        </ListItem>
-      </List>
-    </div>
-  );
-}
+class LectureListCard extends React.Component{
 
+  render(){
+    const props = this.props;
+    const { classes } = props;
+    const { id, title } = props.lecture;
+    return (
+      <div className={classes.root}>
+        <List component="nav" className="lecture-row">
+          <ListItem button component={ Link } to={`/lectures/${id}`}>
+            <ListItemText primary={title} />
+          </ListItem>
+
+          <Delete onClick={() => this.props.deleteLecture(props.lecture)} />
+        </List>
+      </div>
+    );
+  }
+}
 
 LectureListCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(LectureListCard);
+const mapState = null;
+
+const mapDispatch = (dispatch) => {
+  return {
+    deleteLecture: (lecture) => dispatch(deleteLecture(lecture))
+  }
+}
+
+export default withStyles(styles)(
+  connect(mapState, mapDispatch)(LectureListCard)
+)
