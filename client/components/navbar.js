@@ -24,6 +24,7 @@ class Navbar extends Component {
             <div className="nav-items">
               {/* The navbar will show these links before you log in */}
               <Link to="/login">Login</Link>
+              &nbsp;
               <Link to="/signup">Sign Up</Link>
             </div>
         )}

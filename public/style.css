@@ -14,6 +14,11 @@ h1 {
   text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;
 }
 
+nav a {
+  display: inline-block;
+  margin: 1em;
+}
+
 a {
   text-decoration: none;
 }
@@ -27,9 +32,22 @@ label {
   flex-direction: row;
 }
 
+.nav-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-items a {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 nav a {
   display: inline-block;
-  margin: 1em;
+  vertical-align: middle;
 }
 
 form div {
