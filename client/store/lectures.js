@@ -44,6 +44,34 @@ export const postNote = (note) => async dispatch => {
   }
 }
 
+export const deleteNoteThunk = (id, lectureId) => async dispatch => {
+  try {
+    const {data: user} = await axios.get("/auth/me")
+    if(!user) throw Error('Logged-out user is not allowed to create a course')
+    await axios.delete(`/api/notes/${id}`);
+  } catch (error) {
+    console.log(error)
+  } finally {
+    const {data} = await axios.get(`/api/lectures/${lectureId}`)
+    dispatch(getSingleLecture(data))
+  }
+}
+
+export const updateNoteThunk = (id, lectureId, noteText) => async dispatch => {
+  try {
+    const {data: user} = await axios.get("/auth/me")
+    if(!user) throw Error('Logged-out user is not allowed to create a course')
+    await axios.put(`/api/notes/${id}`, {noteText});
+  } catch (error) {
+    console.log(error)
+  } finally {
+    const {data} = await axios.get(`/api/lectures/${lectureId}`)
+    dispatch(getSingleLecture(data))
+  }
+}
+
+
+
 // REDUCER
 const lectures = (state = initialLectureState, action) => {
   switch (action.type) {

@@ -31,7 +31,7 @@ router.put('/:noteId', async(req, res, next) => {
       returning: true,
     });
 
-    req.json(noteUpdated);
+    res.json(noteUpdated);
   }catch(err){
     next(err);
   }

@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import YouTube from 'react-youtube'
 import {connect} from 'react-redux'
-import {fetchSingleLectureThunk, postNote} from '../store/lectures'
+import {fetchSingleLectureThunk, postNote, deleteNoteThunk} from '../store/lectures'
+import NoteText from './NoteText'
 
 class SingleLecture extends Component {
 
@@ -10,7 +11,8 @@ class SingleLecture extends Component {
 
     this.state = {
       player_head_pos: 0,
-      posToPlay: 0
+      posToPlay: 0,
+      noteText: ''
     }
 
     this.onPause = this.onPause.bind(this)
@@ -73,10 +75,11 @@ class SingleLecture extends Component {
           {
             this.props.lecture.notes.map(note => (
               <div className="note-time" key={note.id}>
-                <p className="note-padding">
-                  <a href="#" onClick={() => this.changePlayerHeadPos(note.player_head_pos)}>{note.hhmmss}</a>
-                  &nbsp;{note.note}
-                </p>
+                  <div className="note-padding" >
+                    <a href="#" onClick={() => this.changePlayerHeadPos(note.player_head_pos)}>{note.hhmmss}</a>
+                    &nbsp;
+                    <NoteText note={note} />
+                  </div>
               </div>
             ))
           }
@@ -87,12 +90,13 @@ class SingleLecture extends Component {
               <input type="text" name="player_head_pos" value={this.state.player_head_pos}/>
               <br />
               <label htmlFor="note">Note:</label>
-              <textarea name="note" width="100%"/>
+              <textarea name="note"/>
               <br />
 
               <button type="submit">Save</button>
             </form>
           </div>
+
         </div>
       </div>
     )
@@ -124,7 +128,7 @@ const mapDispatch = dispatch => {
         note: evt.target.note.value
       }
       dispatch(postNote(note))
-    }
+    },
   }
 }
 
