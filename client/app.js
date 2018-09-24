@@ -4,8 +4,7 @@ import {Navbar, Login, Signup} from './components'
 import AllCourses from './components/AllCourses'
 import SingleCourse from './components/SingleCourse'
 import SingleLecture from './components/SingleLecture'
-import AddLecture from './components/AddLecture'
-// import Routes from './routes'
+
 import {Route, Switch} from 'react-router-dom'
 
 const App = () => {
@@ -16,7 +15,6 @@ const App = () => {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/lectures/add" component = {AddLecture} />
         <Route path="/lectures/:lectureId" component={SingleLecture} />
         <Route path="/courses/:courseId" component={SingleCourse} />
         <Route exact path="/courses" component={AllCourses} />
