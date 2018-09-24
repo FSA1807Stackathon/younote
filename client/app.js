@@ -20,7 +20,7 @@ const App = () => {
         <Route path="/lectures/:lectureId" component={SingleLecture} />
         <Route path="/courses/:courseId" component={SingleCourse} />
         <Route exact path="/courses" component={AllCourses} />
-        <Route exact path="/" component={Login} />
+        <Route exact path="/" component={Signup} />
       </Switch>
     </React.Fragment>
   )
