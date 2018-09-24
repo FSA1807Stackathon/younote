@@ -10,7 +10,7 @@ import {Route, Switch} from 'react-router-dom'
 
 const App = () => {
   return (
-    <div>
+    <React.Fragment>
       <Navbar />
       {/* <Routes /> */}
       <Switch>
@@ -20,8 +20,9 @@ const App = () => {
         <Route path="/lectures/:lectureId" component={SingleLecture} />
         <Route path="/courses/:courseId" component={SingleCourse} />
         <Route exact path="/courses" component={AllCourses} />
+        <Route exact path="/" component={Login} />
       </Switch>
-    </div>
+    </React.Fragment>
   )
 }
 

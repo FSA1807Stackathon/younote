@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout, me} from '../store'
 import UserHome from './user-home'
-import {AppBar} from '@material-ui/core'
 
 class Navbar extends Component {
   componentDidMount() {
@@ -14,14 +13,12 @@ class Navbar extends Component {
   render() {
     const {isLoggedIn} = this.props
     return (
-      <AppBar position="static" className="navbar">
+      <div className="navbar">
         <Link to="/courses" className="logo-link">
-          <div className="logo-style">
-            <span className="logo-title">YouNote</span>
-          </div>
+          <h2 className="logo-title">YouNote</h2>
         </Link>
-        <nav className="nav-items">
-          {isLoggedIn ? (
+        &nbsp;
+        {isLoggedIn ? (
             <UserHome />
           ) : (
             <div className="nav-items">
@@ -29,10 +26,8 @@ class Navbar extends Component {
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
             </div>
-          )}
-        </nav>
-        <hr />
-      </AppBar>
+        )}
+      </div>
     )
   }
 }

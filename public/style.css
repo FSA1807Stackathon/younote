@@ -2,17 +2,16 @@ body {
   font-family: sans-serif;
 }
 
-body::-webkit-scrollbar {
-  width: 1em;
+h1 {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 2em;
+  line-height: 1em;
 }
-
-body::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
-
-body::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
+.inset-text {
+  /* Shadows are visible under slightly transparent text color */
+  color: blue;
+  text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;
 }
 
 a {
@@ -151,13 +150,14 @@ textarea:focus{
   font-weight: bold;
   font-size: 35px;
   position: relative;
-  color: greenyellow
+  color: lightblue;
 }
 
 .logged-in-nav {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: center;
 }
 
 .logout-button {

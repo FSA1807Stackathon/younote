@@ -66,10 +66,10 @@ class AllCourses extends Component {
               <p id="modal-error" />
             </div>
             <div>
-              <h1>Create a Course</h1>
+              <h1 className="inset-text">Create a Course</h1>
             </div>
             <div>
-              <label htmlFor="coursename">Name</label>
+              <label htmlFor="coursename">Course Title:</label>
               <input name="coursename" type="text" />
             </div>
             <Button variant="outlined" color="primary" size="small" type="submit"> Create

@@ -14,7 +14,7 @@ class UserHome extends Component {
       <div className="logged-in-nav">
         <h3>Welcome, {this.props.email}</h3>
         &nbsp;
-        <Button variant="contained" size="small" onClick={this.props.handleClick}>Logout</Button>
+        <Button variant="outlined" color="primary" size="small" onClick={this.props.handleClick}>Logout</Button>
       </div>
     )
   }
