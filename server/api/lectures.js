@@ -16,7 +16,7 @@ router.get('/:lectureId', async(req, res, next) => {
     }
 
     // sort notes
-    lecture.notes.sort((note1, note2) => note1.createdAt > note2.createdAt);
+    lecture.notes.sort((note1, note2) => note1.player_head_pos > note2.player_head_pos);
     res.json(lecture);
   }catch(err){
     next(err);
