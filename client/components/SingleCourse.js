@@ -4,7 +4,6 @@ import { fetchSingleCourseThunk, createLecture } from '../store/courses'
 import LectureListCard from './LectureListCard';
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
-import { Link } from 'react-router-dom'
 import LectureCreateModal from './LectureCreateModal'
 
 class SingleCourse extends Component {
