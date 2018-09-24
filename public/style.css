@@ -119,3 +119,8 @@ form div {
 .logout-button {
   margin-left: 10px;
 }
+
+.lecture-row{
+  display: flex;
+  flex-direction: row;
+}
