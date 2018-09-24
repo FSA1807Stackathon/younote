@@ -19,6 +19,24 @@ router.post('/', async(req, res, next) => {
   }
 });
 
+// PUT
+router.put('/:noteId', async(req, res, next) => {
+  try{
+    const {noteText} = req.body;
+
+    const noteUpdated = await Note.update({note: noteText}, {
+      where: {
+        id: req.params.noteId,
+      },
+      returning: true,
+    });
+
+    req.json(noteUpdated);
+  }catch(err){
+    next(err);
+  }
+});
+
 // DELETE
 router.delete('/:noteId', async(req, res, next) => {
   try{
