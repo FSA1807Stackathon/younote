@@ -7,12 +7,14 @@ class SingleLecture extends Component {
 
   constructor(){
     super()
+
     this.state = {
-      player_head_pos: ""
+      player_head_pos: 0,
+      posToPlay: 0
     }
+
     this.onPause = this.onPause.bind(this)
     this.changePlayerHeadPos = this.changePlayerHeadPos.bind(this);
-    this.start = this.start.bind(this);
   }
 
   componentDidMount(){
@@ -24,20 +26,17 @@ class SingleLecture extends Component {
     const totalSeconds = evt.target.getCurrentTime().toFixed(0)
     const minutes = (totalSeconds / 60).toFixed(0)+""
     const seconds = (totalSeconds % 60)
+
     this.setState({
-      player_head_pos:
-      minutes + ":" + ((seconds < 10) ? "0"+seconds : seconds)
+      player_head_pos: minutes + ":" + ((seconds < 10) ? "0"+seconds : seconds)
     })
   }
 
-  changePlayerHeadPos(headPos){
+  changePlayerHeadPos(posToPlay){
     this.setState({
-      player_head_pos: headPos
+      ...this.state,
+      posToPlay,
     })
-  }
-
-  start(evt){
-    evt.target.start(this.state.player_head_pos);
   }
 
   render(){
@@ -45,6 +44,10 @@ class SingleLecture extends Component {
     const opts = {
       height: '390',
       width: '640',
+      playerVars:{
+        start: this.state.posToPlay,
+        autoplay: 1
+      }
     };
 
     return (
@@ -53,7 +56,6 @@ class SingleLecture extends Component {
           videoId={this.props.lecture.youtube_key}
           opts={opts}
           onPause={this.onPause}
-          onStateChange={this.start}
         />
 
         {
@@ -78,7 +80,6 @@ class SingleLecture extends Component {
       </div>
     )
   }
-
 
 }
 
