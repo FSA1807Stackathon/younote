@@ -98,6 +98,24 @@ export const createLecture = (lecture) => async dispatch => {
   }
 }
 
+export const deleteLecture = (lecture) => async dispatch => {
+  let user;
+  try{
+    const {data} = await axios.get('/auth/me');
+    user = data;
+
+    if(!user) throw Error('User is not logged-in.');
+    await axios.delete(`/api/lectures/${lecture.id}`);
+
+  }catch(err){
+    console.log(err);
+  }finally{
+    const courseId = lecture.courseId
+    const res = await axios.get(`/api/users/${user.id}/courses/${courseId}`)
+    const {lectures} = res.data;
+    dispatch(getSingleCourse(lectures))
+  }
+}
 
 // REDUCER
 const courses = (state = initialCourseState, action) => {

@@ -89,3 +89,8 @@ form div {
   display: flex;
   flex-direction: row;
 }
+
+.lecture-row{
+  display: flex;
+  flex-direction: row;
+}
