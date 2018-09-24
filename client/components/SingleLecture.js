@@ -27,11 +27,17 @@ class SingleLecture extends Component {
 
   onPause(evt){
     const totalSeconds = evt.target.getCurrentTime().toFixed(0)
-    const minutes = (totalSeconds / 60).toFixed(0)+""
-    const seconds = (totalSeconds % 60)
+
+    let hh = Math.floor(totalSeconds / 3600);
+    let mm = Math.floor((totalSeconds % 3600)/60);
+    let ss = ((totalSeconds % 3600)%60);
+    if(hh < 10) hh = `0${hh}`;
+    if(mm < 10) mm = `0${mm}`;
+    if(ss < 10) ss = `0${ss}`;
+    const hhmmss = `${hh}:${mm}:${ss}`;
 
     this.setState({
-      player_head_pos: minutes + ":" + ((seconds < 10) ? "0"+seconds : seconds)
+      player_head_pos: hhmmss
     })
   }
 
@@ -56,8 +62,8 @@ class SingleLecture extends Component {
     for(let note of this.props.lecture.notes){
       let headPos = note.player_head_pos;
 
-      let hh = (headPos / 3600).toFixed(0);
-      let mm = ((headPos % 3600)/60).toFixed(0);
+      let hh = Math.floor(headPos / 3600);
+      let mm = Math.floor((headPos % 3600)/60);
       let ss = ((headPos % 3600)%60);
       if(hh < 10) hh = `0${hh}`;
       if(mm < 10) mm = `0${mm}`;
