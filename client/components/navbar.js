@@ -14,9 +14,12 @@ class Navbar extends Component {
   render() {
     const {isLoggedIn} = this.props
     return (
-      <AppBar color="primary" position="sticky" className="navbar">
-        <h1>YouNote</h1>
-        <Link to="/" className="logo-link" />
+      <AppBar position="static" className="navbar">
+        <Link to="/courses" className="logo-link">
+          <div className="logo-style">
+            <span className="logo-title">YouNote</span>
+          </div>
+        </Link>
         <nav className="nav-items">
           {isLoggedIn ? (
             <UserHome />
