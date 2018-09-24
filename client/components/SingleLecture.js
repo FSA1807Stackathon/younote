@@ -50,6 +50,18 @@ class SingleLecture extends Component {
       }
     };
 
+    for(let note of this.props.lecture.notes){
+      let headPos = note.player_head_pos;
+
+      let hh = (headPos / 3600).toFixed(0);
+      let mm = ((headPos % 3600)/60).toFixed(0);
+      let ss = ((headPos % 3600)%60);
+      if(hh < 10) hh = `0${hh}`;
+      if(mm < 10) mm = `0${mm}`;
+      if(ss < 10) ss = `0${ss}`;
+      note.hhmmss = `${hh}:${mm}:${ss}`;
+    }
+
     return (
       <div className="single-lecture">
         <YouTube
@@ -62,7 +74,7 @@ class SingleLecture extends Component {
             this.props.lecture.notes.map(note => (
               <div className="note-time" key={note.id}>
                 <p className="note-padding">
-                  <a href="#" onClick={() => this.changePlayerHeadPos(note.player_head_pos)}>{note.player_head_pos}s</a>
+                  <a href="#" onClick={() => this.changePlayerHeadPos(note.player_head_pos)}>{note.hhmmss}</a>
                   &nbsp;{note.note}
                 </p>
               </div>
