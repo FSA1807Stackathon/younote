@@ -124,15 +124,17 @@ const mapDispatch = dispatch => {
       let player_head_pos = 0;
       if(evt.target.player_head_pos.value){
         const strArr = evt.target.player_head_pos.value.split(":")
-        const minute = Number(strArr[0]) * 60;
-        const seconds = Number(strArr[1])
-        player_head_pos = minute + seconds
+        const hour = Number(strArr[0]) * 3600;
+        const minute = Number(strArr[1]) * 60;
+        const seconds = Number(strArr[2]);
+        player_head_pos = hour + minute + seconds
       }
       const note = {
         lectureId: evt.target.lectureId.value,
         player_head_pos: player_head_pos,
         note: evt.target.note.value
       }
+
       dispatch(postNote(note))
     },
   }
