@@ -15,13 +15,12 @@ install:
   - npm ci # faster, goes only from package-lock
 before_script:
   - psql -c 'create database "younote-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
-
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true
+  provider: heroku
+  app: younotebook
+  api_key:
+    secure: drdXDV81R5eC+w1AK5Vn6dvs85B3UYlpBhvyak1m+61UPqpMKyImUPRRghW80PxfB/CO6GjGp/wZt2KVslhGAydy8Wy5a9mV7o2/5TJzr03SnYfrhiLciVHMxcWxmRV/APWYlr2YjBWSrfJpvOCr7Drx356yP/t6C7AgleieMvrnIKIWUM286f30T6lRf/hxluuj49PkheCIe6iV40ofb6x/JeVd0qrgFORtCXxXBYBzlKAtd1LVfr70V7wag1uKjggaU8Pc1PeKEcKFGnhpu204z1lDArD77v8jC28GagcTPseWtQfvTnhvhdpjf+K4rZYtuRJ0WaFVKuf0BAJavUYyFvVMjwWN85FByRMCQ4aox1SfhKZrYmdltrkyuXucI5A4aJz35vpTeECcXpdC5cV+s5uGMIMRpCo7wz15CV1s9o656ly3r0u07r/uC+g6fPWa4F+NX+yjhNJHfP0+pG26YAdwSRbrvY6mh5vBsO4EHpmk38rNNzILBpo4Dy4vh/mRN8EZCosvca3Q7/eYTz2dR+3U4Uw2j+nKuS4FyU6T8/GbVU/G6/VrFVG/6MjgDpXbeKOG1yZxo9CpdzFau0truT3ei4QMeFB9mgu2IjZ+lkTddrTbLOpVysFg4qFlLp35/qak81o5beVnCtpUEkGpJZZUS7T00FTIeysvA5g=
