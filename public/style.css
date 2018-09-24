@@ -53,11 +53,11 @@ form div {
 }
 
 .courses{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-content: space-around;
+  display: grid;
+  justify-content: 'center';
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 15px 15px;
+  padding: 5px;
 }
 
 .create-course{
@@ -88,4 +88,34 @@ form div {
 .notes{
   display: flex;
   flex-direction: row;
+}
+
+.gallery {
+  display: grid;
+  justify-content: 'center';
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 15px 15px;
+  padding: 5px;
+}
+
+.logo-style {
+  text-align: center;
+  vertical-align: center;
+}
+
+.logo-title {
+  font-weight: bold;
+  font-size: 35px;
+  position: relative;
+  color: greenyellow
+}
+
+.logged-in-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.logout-button {
+  margin-left: 10px;
 }

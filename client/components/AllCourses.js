@@ -45,7 +45,7 @@ class AllCourses extends Component {
   render(){
     const {allCourses} =  this.props.courses
     return (
-      <div className="courses">
+      <div className="gallery">
         {
           allCourses.map(course => (
           <CourseCard

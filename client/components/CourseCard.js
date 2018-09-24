@@ -24,12 +24,12 @@ const styles = {
 
 const CourseCard = props => {
   const {classes} = props
-  const {id, name} = props.course
+  const {id, name, imgUrl} = props.course
   return (
     <Card className={classes.card}>
       <Link to={`/courses/${id}`}>
         <CardActionArea className={classes.fullWidth}>
-          <CardMedia className={classes.media} title={name} />
+          <CardMedia className={classes.media} image={imgUrl} title={name} />
           <CardContent>
             <Typography gutterBottom variant="headline" component="h2">
               {name}

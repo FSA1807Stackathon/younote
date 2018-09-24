@@ -11,9 +11,10 @@ import {Button} from '@material-ui/core'
 class UserHome extends Component {
   render(){
     return (
-      <div>
+      <div className="logged-in-nav">
         <h3>Welcome, {this.props.email}</h3>
-        <Button onClick={this.props.handleClick}>Logout</Button>
+        &nbsp;
+        <Button variant="contained" size="small" onClick={this.props.handleClick}>Logout</Button>
       </div>
     )
   }
